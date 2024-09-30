@@ -1,10 +1,11 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { TouchableOpacity } from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { TouchableOpacity, Image } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import HomeScreen from './Paginas/Index';
 import Paginas from './Paginas/testes';
@@ -14,6 +15,12 @@ import AboutScreen from './Paginas/Sobre';
 const Stack = createStackNavigator();
 const BottomTab = createMaterialBottomTabNavigator();
 
+function LogoTitle() {
+    //<Image {{height: 50, width: 50}} source={require:}
+    <MaterialCommunityIcons name='unreal' color='black' size={25} />
+
+}
+
 function BotRoute(){
     return( 
             <BottomTab.Navigator initialRouteName='Home' barStyle={{backgroundColor: 'black'}} activeColor='orange'>
@@ -22,7 +29,7 @@ function BotRoute(){
                         component={HomeScreen} 
                         options={{tabBarLabel: 'Index', 
                         tabBarIcon: ({color}) => ( 
-                        <MaterialCommunityIcons name='home' color={color} size={25}/>)}} 
+                        <MaterialIcons name='home' color={color} size={25}/>)}} 
                     />
 
                     <BottomTab.Screen
@@ -30,7 +37,7 @@ function BotRoute(){
                         component={StockScreen} 
                         options={{tabBarLabel: 'Estoque', 
                         tabBarIcon: ({color}) => ( 
-                        <MaterialCommunityIcons name='warehouse' color={color} size={25}/>)}} 
+                        <MaterialIcons name='warehouse' color={color} size={25}/>)}} 
                     />
 
                     <BottomTab.Screen 
@@ -38,7 +45,7 @@ function BotRoute(){
                         component={AboutScreen} 
                         options={{tabBarLabel: 'Informações', 
                         tabBarIcon: ({color}) => ( 
-                        <MaterialCommunityIcons name='contacts' color={color} size={25}/>)}} 
+                        <MaterialIcons name='info' color={color} size={25}/>)}} 
                     />
 
                 </BottomTab.Navigator>
@@ -50,19 +57,20 @@ function Routes(){
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen 
-                name='name'
+                name='J'
                 component={BotRoute}
                 options={{
-                    tittle: 'ALUGUE',
-                    headerTitleStyle:{
-                        fontFamily: 'KanitBold'
-                    },
+                    
+                    headerTitle: () => (
+                    //<LogoTitle />
+                    <MaterialCommunityIcons name='unreal' color='orange' size={35} />
+                    ),
 
                     headerRight: () => (
                         <TouchableOpacity style={{marginRight: 15}}>
-                            <MaterialCommunityIcons 
-                            name='archive'
-                            color='black'
+                            <MaterialIcons 
+                            name='account-circle'
+                            color='orange'
                             size={37}
                             />
                         </TouchableOpacity>
@@ -81,7 +89,7 @@ function Routes(){
 
                     headerRight: () => (
                         <TouchableOpacity style={{marginRight: 15}}>
-                            <MaterialCommunityIcons 
+                            <MaterialIcons 
                             name='archive'
                             color='black'
                             size={37}
