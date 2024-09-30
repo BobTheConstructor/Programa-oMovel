@@ -20,6 +20,14 @@
         "backgroundColor": "#ffffff"
       }
     },
+      "plugins": [
+        [
+          "expo-font",
+          {
+            "fonts": ["assets./fonts/KanitBold.ttf"]
+          }
+        ]
+      ],
     "web": {
       "favicon": "./assets/favicon.png"
     }
