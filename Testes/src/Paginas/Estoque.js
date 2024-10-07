@@ -12,47 +12,52 @@ export default function HomeScreen() {
     return (
         <ScrollView showsVerticalScrollIndicator={false} style={{paddingHorizontal: 15}}>
             <Products
-             cover={require('../../assets/Pex1.jpg')}
+             cover={require('../../assets/PexStock.jpg')}
              name="Primeira Imagen"
              onPress={() => navigation.navigate('Detail')}
             />
             <Products
-             cover={require('../../assets/Pex1.jpg')}
+             cover={require('../../assets/PexStock.jpg')}
              name="Primeira Imagen"
              onPress={() => navigation.navigate('Detail')}
             />
             <Products
-             cover={require('../../assets/Pex1.jpg')}
+             cover={require('../../assets/PexStock.jpg')}
              name="Primeira Imagen"
              onPress={() => navigation.navigate('Detail')}
             />
             <Products
-             cover={require('../../assets/Pex1.jpg')}
+             cover={require('../../assets/PexStock.jpg')}
              name="Primeira Imagen"
              onPress={() => navigation.navigate('Detail')}
             />
             <Products
-             cover={require('../../assets/Pex1.jpg')}
+             cover={require('../../assets/PexStock.jpg')}
              name="Primeira Imagen"
              onPress={() => navigation.navigate('Detail')}
             />
             <Products
-             cover={require('../../assets/Pex1.jpg')}
+             cover={require('../../assets/PexStock.jpg')}
              name="Primeira Imagen"
              onPress={() => navigation.navigate('Detail')}
             />
             <Products
-             cover={require('../../assets/Pex1.jpg')}
+             cover={require('../../assets/PexStock.jpg')}
              name="Primeira Imagen"
              onPress={() => navigation.navigate('Detail')}
             />
             <Products
-             cover={require('../../assets/Pex1.jpg')}
+             cover={require('../../assets/PexStock.jpg')}
              name="Primeira Imagen"
              onPress={() => navigation.navigate('Detail')}
             />
             <Products
-             cover={require('../../assets/Pex1.jpg')}
+             cover={require('../../assets/PexStock.jpg')}
+             name="Primeira Imagen"
+             onPress={() => navigation.navigate('Detail')}
+            />
+            <Products
+             cover={require('../../assets/PexStock.jpg')}
              name="Primeira Imagen"
              onPress={() => navigation.navigate('Detail')}
             />

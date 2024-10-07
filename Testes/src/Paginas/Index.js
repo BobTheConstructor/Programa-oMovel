@@ -53,6 +53,13 @@ export default function HomeScreen() {
              onPress={() => {}}
             />
 
+            <New
+             cover={require('../../assets/LogoJKM.jpeg')}
+             name="Terceira Imagen"
+             description="A terceira descrição, sla mano"
+             onPress={() => {}}
+            />
+
             </ScrollView>
         
         </ScrollView>

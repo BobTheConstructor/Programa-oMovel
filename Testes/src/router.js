@@ -15,15 +15,9 @@ import AboutScreen from './Paginas/Sobre';
 const Stack = createStackNavigator();
 const BottomTab = createMaterialBottomTabNavigator();
 
-function LogoTitle() {
-    //<Image {{height: 50, width: 50}} source={require:}
-    <MaterialCommunityIcons name='unreal' color='black' size={25} />
-
-}
-
 function BotRoute(){
     return( 
-            <BottomTab.Navigator initialRouteName='Home' barStyle={{backgroundColor: 'black'}} activeColor='orange'>
+            <BottomTab.Navigator initialRouteName='Home' barStyle={{backgroundColor: 'orange'}} activeColor='white'>
                     <BottomTab.Screen 
                         name='nome' 
                         component={HomeScreen} 
@@ -60,21 +54,21 @@ function Routes(){
                 name='J'
                 component={BotRoute}
                 options={{
-                    
-                    headerTitle: () => (
-                    //<LogoTitle />
-                    <MaterialCommunityIcons name='unreal' color='orange' size={35} />
-                    ),
-
+                    headerTitle: () => 
+                            <Image style={{height: 55, width: 80, borderRadius:20, borderWidth:0.5,borderColor:'black'}} 
+                            source={require('../assets/JKM.png')}/>,
                     headerRight: () => (
                         <TouchableOpacity style={{marginRight: 15}}>
                             <MaterialIcons 
                             name='account-circle'
-                            color='orange'
+                            color='black'
                             size={37}
                             />
                         </TouchableOpacity>
-                    )
+                    ),
+                    headerStyle: {
+                        backgroundColor:'orange'
+                    }
                 }} 
                 />
 
