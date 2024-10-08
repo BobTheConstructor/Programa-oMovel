@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     price:{
         fontSize: 15,
         fontFamily: 'KanitBold',
+        
     },
     line:{
         flexDirection: 'row',

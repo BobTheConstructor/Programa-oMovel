@@ -52,16 +52,13 @@ export default function HomeScreen() {
              description="A terceira descrição, sla mano"
              onPress={() => {}}
             />
-
-            <New
-             cover={require('../../assets/LogoJKM.jpeg')}
-             name="Terceira Imagen"
-             description="A terceira descrição, sla mano"
-             onPress={() => {}}
-            />
-
+            
             </ScrollView>
-        
+            <View styles={styles.containerR}>
+            </View>
+            <View styles={styles.containerL}>
+                <Text styles={styles.texto}>ajudame</Text>
+            </View>
         </ScrollView>
     );
 }
@@ -103,5 +100,29 @@ const styles = StyleSheet.create({
         fontFamily: 'KanitBold',
         fontSize: 18,
         color: "black",
-    }
+    },
+    containerL:{
+        marginTop: 20,
+        backgroundColor: '#FFF',
+        height: 250,
+        width: 200,
+        elevation: 2,
+        borderRadius: 10,
+        padding: 15,
+        marginRight: 30,
+        marginLeft: 2,
+        marginBottom: 5,
+    },
+    containerR:{
+        marginTop: 12,
+        backgroundColor: '#fff',
+        height: 75,
+        width: 370,
+        elevation: 5,
+        borderRadius: 10,
+        padding: 15,
+        marginRight: 15,
+        marginLeft: 1,
+        marginBottom: 5,
+    },
 })
