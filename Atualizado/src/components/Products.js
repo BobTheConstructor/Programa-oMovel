@@ -3,33 +3,33 @@ import { View, Text, StyleSheet, Image} from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-export default function Products({cover, description, value, aperta}) {
+export default function Products() {
     return (
-        <TouchableOpacity onPress={aperta} style={styles.container}>
+        <View style={styles.container}>
             <View>
                 <Image
-                source={cover}
+                source={require('../../assets/Pex3.jpg')}
                 style={styles.cover}
                 />
             </View>
 
             <View style={styles.content}>
                 <Text style={styles.descrition}>
-                    {description}
+                    está é uma descrição e tals tlg
                 </Text>
                 <Text style={styles.price}>
-                    R${value}
+                    543,55R$
                 </Text>
             </View>
-        </TouchableOpacity>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     container:{
         flexDirection: 'row',
-        width: 370,
-        height: 100,
+        width: 260,
+        height: 70,
         backgroundColor: '#fff',
         elevation: 2,
         padding: 6,
@@ -40,22 +40,21 @@ const styles = StyleSheet.create({
     },
     cover:{
         borderRadius: 10,
-        width: 100,
-        height: 88,
+        width: 60,
+        height: 60,
     },
     content:{
-        width: '73%',
+        width: '65%',
+        justifyContent: 'flex-end',
         paddingHorizontal: 10,
-        justifyContent: 'flex-start',
-        height: '80%',
+        height: '100%',
     },
     descrition:{
-        fontSize: 12,
+        fontSize: 9,
         fontFamily: 'KanitRegular',
-
     },
     price:{
-        fontSize: 15,
+        fontSize: 12,
         fontFamily: 'KanitBold'
     }
 })

@@ -13,7 +13,19 @@ export default function HomeScreen() {
         <ScrollView
         showsVerticalScrollIndicator={false}
         style={{backgroundColor: '#fff', }}
-        >                    
+        >
+            
+            <View style={styles.header}>
+                <View style={styles.inputArea}>
+                <MaterialIcons
+                    name="search" size={24} color="black"
+                />
+                <TextInput 
+                placeholder="O que está Procurando"
+                style={styles.input}
+                />
+                </View>
+            </View>
 
             <View style={styles.contentNew}>
                 <Text style={styles.title}>Novidades</Text>
