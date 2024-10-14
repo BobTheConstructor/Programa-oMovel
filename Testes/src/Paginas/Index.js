@@ -5,6 +5,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { useNavigation } from '@react-navigation/native';
 
 import New from '../components/New'
+import SwiperInit from '../components/SwInicio';
 
 export default function HomeScreen() {
     const navigation = useNavigation();
@@ -17,6 +18,9 @@ export default function HomeScreen() {
 
             <View style={styles.contentNew}>
                 <Text style={styles.title}>Novidades</Text>
+            
+            
+                <SwiperInit />
             </View>
 
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ paddingHorizontal: 15, }}>

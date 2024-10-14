@@ -27,7 +27,7 @@ export default function HomeScreen() {
             
             <Products
             cover={require('../../assets/PexStock.jpg')}
-            description='dsadashhhhhdsasssssssssssçççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççsssssssssssssssssssssssssssssss'
+            description='dsadashhhhhdsassssssssdddddddddddddddddçççççççççççççççççççççççççççççççlll'
             value='4002,00'
             aperta={() => navigation.navigate('Detail')}
             />

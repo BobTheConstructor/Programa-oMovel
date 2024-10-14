@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image} from 'react-native';
 import Swiper from 'react-native-swiper';
 
-export default function SwiperComponent(){
+export default function SwiperInit(){
     return(
         <Swiper
         style={styles.wrapper}
