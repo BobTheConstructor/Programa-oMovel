@@ -54,11 +54,11 @@ export default function HomeScreen() {
             />
             
             </ScrollView>
-            <View styles={styles.containerR}>
+
+            <View style={{ flexDirection: 'row', marginBottom: 10, alignItems: 'center' }}> 
+            <Text styles={[styles.title, {marginTop: 15 }]}></Text>
             </View>
-            <View styles={styles.containerL}>
-                <Text styles={styles.texto}>ajudame</Text>
-            </View>
+        
         </ScrollView>
     );
 }

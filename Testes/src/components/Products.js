@@ -3,53 +3,58 @@ import { View, Text, StyleSheet, Image} from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-
-
-export default function Products(props){
+export default function Products() {
     return (
-        <TouchableOpacity  onPress={props.onPress} style={styles.container}>
-            <View style={styles.line}>
+        <View style={styles.container}>
+            <View>
                 <Image
-                source={props.cover}
+                source={require('../../assets/Pex3.jpg')}
                 style={styles.cover}
                 />
-                <View>
-                    
-                </View>
+            </View>
 
-            <View>
-                <Text style={styles.price}>R$ 8888,32</Text>
+            <View style={styles.content}>
+                <Text style={styles.descrition}>
+                    está é uma descrição e tals tlg
+                </Text>
+                <Text style={styles.price}>
+                    543,55R$
+                </Text>
             </View>
         </View>
-        </TouchableOpacity>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
     container:{
-        marginTop: 12,
+        flexDirection: 'row',
+        width: 260,
+        height: 70,
         backgroundColor: '#fff',
-        height: 75,
-        width: 370,
-        elevation: 5,
+        elevation: 2,
+        padding: 6,
+        marginVertical: 5,
+        marginRight: 20,
+        marginLeft: 2,
         borderRadius: 10,
-        padding: 15,
-        marginRight: 15,
-        marginLeft: 1,
-        marginBottom: 5,
     },
     cover:{
-        width: 130,
-        height: 50,
         borderRadius: 10,
-        alignItems: 'flex-start',
+        width: 60,
+        height: 60,
+    },
+    content:{
+        width: '65%',
+        justifyContent: 'flex-end',
+        paddingHorizontal: 10,
+        height: '100%',
+    },
+    descrition:{
+        fontSize: 9,
+        fontFamily: 'KanitRegular',
     },
     price:{
-        fontSize: 15,
-        fontFamily: 'KanitBold',
-        
-    },
-    line:{
-        flexDirection: 'row',
+        fontSize: 12,
+        fontFamily: 'KanitBold'
     }
-});
+})

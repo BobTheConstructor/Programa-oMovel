@@ -4,7 +4,7 @@ import { ScrollView } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { useNavigation } from '@react-navigation/native';
 
-import Products from '../components/Products';
+import Products from '../components/Products'
 
 export default function HomeScreen() {
     const navigation = useNavigation();
@@ -12,54 +12,9 @@ export default function HomeScreen() {
     return (
         <ScrollView showsVerticalScrollIndicator={false} style={{paddingHorizontal: 15}}>
             <Products
-             cover={require('../../assets/PexStock.jpg')}
-             name="Primeira Imagen"
-             onPress={() => navigation.navigate('Detail')}
-            />
-            <Products
-             cover={require('../../assets/PexStock.jpg')}
-             name="Primeira Imagen"
-             onPress={() => navigation.navigate('Detail')}
-            />
-            <Products
-             cover={require('../../assets/PexStock.jpg')}
-             name="Primeira Imagen"
-             onPress={() => navigation.navigate('Detail')}
-            />
-            <Products
-             cover={require('../../assets/PexStock.jpg')}
-             name="Primeira Imagen"
-             onPress={() => navigation.navigate('Detail')}
-            />
-            <Products
-             cover={require('../../assets/PexStock.jpg')}
-             name="Primeira Imagen"
-             onPress={() => navigation.navigate('Detail')}
-            />
-            <Products
-             cover={require('../../assets/PexStock.jpg')}
-             name="Primeira Imagen"
-             onPress={() => navigation.navigate('Detail')}
-            />
-            <Products
-             cover={require('../../assets/PexStock.jpg')}
-             name="Primeira Imagen"
-             onPress={() => navigation.navigate('Detail')}
-            />
-            <Products
-             cover={require('../../assets/PexStock.jpg')}
-             name="Primeira Imagen"
-             onPress={() => navigation.navigate('Detail')}
-            />
-            <Products
-             cover={require('../../assets/PexStock.jpg')}
-             name="Primeira Imagen"
-             onPress={() => navigation.navigate('Detail')}
-            />
-            <Products
-             cover={require('../../assets/PexStock.jpg')}
-             name="Primeira Imagen"
-             onPress={() => navigation.navigate('Detail')}
+            cover={require('../../assets/PexStock.jpg')}
+            description='dsadashhhhhdsa'
+            onPress={() => {}}
             />
         </ScrollView>
     )

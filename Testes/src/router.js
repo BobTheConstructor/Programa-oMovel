@@ -5,10 +5,8 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { TouchableOpacity, Image } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
 import HomeScreen from './Paginas/Index';
-import Paginas from './Paginas/testes';
+import Detail from './Paginas/Detail';
 import StockScreen from './Paginas/Estoque';
 import AboutScreen from './Paginas/Sobre';
 
@@ -74,7 +72,7 @@ function Routes(){
 
                 <Stack.Screen 
                 name="Detail" 
-                component={Paginas} 
+                component={Detail} 
                 options={{
                     tittle: 'ALUGUE',
                     headerTitleStyle:{
