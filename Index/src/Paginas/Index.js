@@ -18,11 +18,10 @@ export default function HomeScreen() {
 
             <View style={styles.contentNew}>
                 <Text style={styles.title}>Novidades</Text>
-            
-            
-                <SwiperInit />
             </View>
-
+            <View>
+            <SwiperInit />
+            </View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ paddingHorizontal: 15, }}>
             <New
              cover={require('../../assets/Pex1.jpg')}

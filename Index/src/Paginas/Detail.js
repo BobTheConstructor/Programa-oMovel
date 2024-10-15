@@ -3,13 +3,13 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { ScrollView } from 'react-native-gesture-handler';
 
-import SwiperComponent from '../components/Swiper';
+import SwiperInit from '../components/SwInicio';
 
 export default function Detail() {
     return (
         <View style={styles.container}>
             <View style={styles.swiperCont}>
-                <SwiperComponent />
+                <SwiperInit />
             </View>
             <Text>Testes</Text>
         </View>
