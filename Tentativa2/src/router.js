@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { TouchableOpacity, Image } from 'react-native';
@@ -9,6 +9,8 @@ import HomeScreen from './Paginas/Index';
 import Detail from './Paginas/Detail';
 import StockScreen from './Paginas/Estoque';
 import AboutScreen from './Paginas/Sobre';
+import LoginPage from './Paginas/Login';
+import ClickableIcon from './Botoes/LoginButton';
 
 const Stack = createStackNavigator();
 const BottomTab = createMaterialBottomTabNavigator();
@@ -41,10 +43,10 @@ function BotRoute(){
                     />
 
                 </BottomTab.Navigator>
-    );
+    );  
 }
 
-function Routes(){
+const Routes = () => {
     return(
         <NavigationContainer>
             <Stack.Navigator>
@@ -56,13 +58,7 @@ function Routes(){
                             <Image style={{height: 55, width: 80, borderRadius:20, borderWidth:0.5,borderColor:'black'}} 
                             source={require('../assets/JKM.png')}/>,
                     headerRight: () => (
-                        <TouchableOpacity style={{marginRight: 15}}>
-                            <MaterialIcons 
-                            name='account-circle'
-                            color='black'
-                            size={37}
-                            />
-                        </TouchableOpacity>
+                        <ClickableIcon />
                     ),
                     headerStyle: {
                         backgroundColor:'orange'
@@ -88,6 +84,16 @@ function Routes(){
                             />
                         </TouchableOpacity>
                     )
+                }} 
+                /> 
+                <Stack.Screen 
+                name="Login" 
+                component={LoginPage} 
+                options={{
+                    tittle: 'Acesse',
+                    headerTitleStyle:{
+                        fontFamily: 'KanitBold'
+                    },
                 }} 
                 /> 
 

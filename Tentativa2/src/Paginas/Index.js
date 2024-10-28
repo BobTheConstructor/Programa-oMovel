@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, TextInput, Text, StyleSheet } from 'react-native';
+import { View, TextInput, Text, StyleSheet, Image } from 'react-native';
 import { ScrollView } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { useNavigation } from '@react-navigation/native';
 
 import New from '../components/New'
 import SwiperInit from '../components/SwInicio';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function HomeScreen() {
     const navigation = useNavigation();
@@ -18,9 +19,6 @@ export default function HomeScreen() {
 
             <View style={styles.contentNew}>
                 <Text style={styles.title}>Novidades</Text>
-            </View>
-            <View style={styles.SwiperSt}>
-            <SwiperInit />
             </View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ paddingHorizontal: 15, }}>
             <New
@@ -46,9 +44,32 @@ export default function HomeScreen() {
             
             </ScrollView>
 
-            <View style={{ flexDirection: 'row', marginBottom: 10, alignItems: 'center' }}> 
-            <Text styles={[styles.title, {marginTop: 15 }]}></Text>
+
+            <View style={styles.contentNew}>
+                <Text style={styles.title}>Produtos Especificados</Text>
             </View>
+
+            <TouchableOpacity style={[styles.containerPage,{marginLeft: 5}]}>
+                <Image style={styles.cover} source={require('../../assets/Carro.jpg')}/>
+                <Text style={styles.titlePages}>Carros</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={[styles.containerPage,{marginLeft: 100}]}>
+                <Image style={styles.cover} source={require('../../assets/Pex3.jpg')}/>   
+                <Text style={styles.titlePages}>Motos</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={[styles.containerPage,{marginLeft: 5}]}>
+                <Image style={styles.cover} source={require('../../assets/Pex1.jpg')}/>
+                <Text style={styles.titlePages}>Caminhões</Text>
+            </TouchableOpacity>
+
+            
+            <TouchableOpacity style={[styles.containerPage,{marginLeft: 100}]}>
+                <Image style={styles.cover} source={require('../../assets/Bicicleta.jpg')}/>
+                <Text style={styles.titlePages}>Bicicleta</Text>
+            </TouchableOpacity>
+            
         
         </ScrollView>
     );
@@ -92,31 +113,30 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: "black",
     },
-    containerL:{
-        marginTop: 20,
-        backgroundColor: '#FFF',
-        height: 250,
-        width: 200,
-        elevation: 2,
-        borderRadius: 10,
-        padding: 15,
-        marginRight: 30,
-        marginLeft: 2,
-        marginBottom: 5,
-    },
-    containerR:{
-        marginTop: 12,
+    containerPage:{
+        flexDirection: 'row',
+        width: 300,
+        height: 70,
         backgroundColor: '#fff',
-        height: 75,
-        width: 370,
-        elevation: 5,
-        borderRadius: 10,
-        padding: 15,
-        marginRight: 15,
-        marginLeft: 1,
-        marginBottom: 5,
+        elevation: 3,
+        marginVertical: 8,
+        borderRadius: 15,
     },
     SwiperSt:{
         alignItems: 'top',
     },
+    cover:{
+        width: 130,
+        height: 70,
+        borderRadius: 10,
+    },
+    titlePages:{
+        paddingHorizontal: 15,
+        fontFamily: 'KanitBold',
+        fontSize: 27,
+        color: "black",
+        marginTop:13,
+        marginLeft:5,
+    },
+
 })
