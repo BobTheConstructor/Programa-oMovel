@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import Products from '../components/Products'
 
-export default function HomeScreen() {
+export default function StockScreen() {
     const navigation = useNavigation();
     
     return (

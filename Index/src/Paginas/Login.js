@@ -4,8 +4,8 @@ import { ScrollView } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { useNavigation } from '@react-navigation/native';
 
-export default function HomeScreen() {
+export default function LoginScreen() {
     return (
-        <View></View>
+        <View><Text>não sei oq escrever ja que é apénas um exemplo</Text></View>
     )
 }

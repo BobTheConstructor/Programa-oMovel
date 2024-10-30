@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const DetailScreen = ({ route }) => {
-  const { stock } = route.params;
+const LoginAdminScreen = ({ route }) => {
+  const { username } = route.params;
 
   return (
     <View style={styles.container}>
-      <Text style={styles.symbol}>{stock.symbol}</Text>
-      <Text style={styles.price}>Current Price: ${stock.price}</Text>
-      {/* Add more stock details as needed */}
+      <Text style={styles.title}>Login Information</Text>
+      <Text style={styles.info}>Welcome, {username}!</Text>
+      {/* Adcionar mais informações */}
     </View>
   );
 };
@@ -19,13 +19,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  symbol: {
+  title: {
     fontSize: 32,
-    fontWeight: 'bold',
   },
-  price: {
+  info: {
     fontSize: 24,
+    marginTop: 20,
   },
 });
 
-export default DetailScreen;
+export default LoginAdminScreen;

@@ -2,26 +2,30 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { TouchableOpacity, Image } from 'react-native';
+import { Image } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 
 import HomeScreen from './Paginas/Index';
-import Detail from './Paginas/Detail';
+import DetailScreen from './Paginas/Detail';
 import StockScreen from './Paginas/Estoque';
-import AboutScreen from './Paginas/Sobre';
+import LoginScreen from './Paginas/Login';
+import LoginAdminScreen from './Paginas/AdminLogin';
+
 
 const Stack = createStackNavigator();
 const BottomTab = createMaterialBottomTabNavigator();
 
-function BotRoute(){
+
+
+function MenuRodape(){
     return( 
-            <BottomTab.Navigator initialRouteName='Home' barStyle={{backgroundColor: 'orange'}} activeColor='white'>
+            <BottomTab.Navigator initialRouteName='Home' barStyle={{backgroundColor: '#f7a700'}} activeColor='white' inactiveColor='black'>
                     <BottomTab.Screen 
                         name='nome' 
                         component={HomeScreen} 
                         options={{tabBarLabel: 'Index', 
                         tabBarIcon: ({color}) => ( 
-                        <MaterialIcons name='home' color={color} size={25}/>)}} 
+                        <MaterialIcons name='home' color={color} size={30}/>)}} 
                     />
 
                     <BottomTab.Screen
@@ -29,18 +33,17 @@ function BotRoute(){
                         component={StockScreen} 
                         options={{tabBarLabel: 'Estoque', 
                         tabBarIcon: ({color}) => ( 
-                        <MaterialIcons name='warehouse' color={color} size={25}/>)}} 
+                        <MaterialIcons name='warehouse' color={color} size={30}/>)}} 
                     />
 
                     <BottomTab.Screen 
-                        name='Sobre' 
-                        component={AboutScreen} 
-                        options={{tabBarLabel: 'Informações', 
+                        name='Login' 
+                        component={LoginScreen} 
+                        options={{tabBarLabel: 'Usuario', 
                         tabBarIcon: ({color}) => ( 
-                        <MaterialIcons name='info' color={color} size={25}/>)}} 
+                        <MaterialIcons name='account-circle' color={color} size={30}/>)}} 
                     />
-
-                </BottomTab.Navigator>
+          </BottomTab.Navigator>
     );
 }
 
@@ -49,48 +52,33 @@ function Routes(){
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen 
-                name='J'
-                component={BotRoute}
-                options={{
-                    headerTitle: () => 
-                            <Image style={{height: 55, width: 80, borderRadius:20, borderWidth:0.5,borderColor:'black'}} 
-                            source={require('../assets/JKM.png')}/>,
-                    headerRight: () => (
-                        <TouchableOpacity style={{marginRight: 15}}>
-                            <MaterialIcons 
-                            name='account-circle'
-                            color='black'
-                            size={37}
-                            />
-                        </TouchableOpacity>
-                    ),
-                    headerStyle: {
-                        backgroundColor:'orange'
-                    }
-                }} 
+                    name='Menu Principal'
+                    component={MenuRodape}
+                    options={{
+                        headerTitle: () => (null),                     
+                        headerBackground: () => 
+                            <Image style={{height: 91, width: 408}} 
+                            source={require('../assets/Logo.png')}/>,
+                    }}
                 />
 
                 <Stack.Screen 
-                name="Detail" 
-                component={Detail} 
-                options={{
-                    tittle: 'ALUGUE',
-                    headerTitleStyle:{
-                        fontFamily: 'KanitBold'
-                    },
-
-                    headerRight: () => (
-                        <TouchableOpacity style={{marginRight: 15}}>
-                            <MaterialIcons 
-                            name='archive'
-                            color='black'
-                            size={37}
-                            />
-                        </TouchableOpacity>
-                    )
-                }} 
+                    name="Detail" 
+                    component={DetailScreen} 
+                    options={{
+                        headerTitleStyle:{fontFamily: 'KanitBold',},
+                        headerTitle:'Voltar',
+                    }}
                 /> 
-
+                
+                <Stack.Screen 
+                    name="LoginInfo" 
+                    component={LoginAdminScreen} 
+                    options={{
+                        headerTitleStyle:{fontFamily: 'KanitBold',},
+                        headerTitle:'Voltar',
+                    }}
+                /> 
             </Stack.Navigator> 
         </NavigationContainer>
     );
