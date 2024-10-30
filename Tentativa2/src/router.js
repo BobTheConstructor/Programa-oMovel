@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Image } from 'react-native';
@@ -8,9 +8,15 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import HomeScreen from './Paginas/Index';
 import DetailScreen from './Paginas/Detail';
 import StockScreen from './Paginas/Estoque';
+<<<<<<< HEAD
 import LoginScreen from './Paginas/Login';
 import LoginAdminScreen from './Paginas/AdminLogin';
 
+=======
+import AboutScreen from './Paginas/Sobre';
+import LoginPage from './Paginas/Login';
+import ClickableIcon from './Botoes/LoginButton';
+>>>>>>> 0d713d33760dea1ddbe50589f504e345c6fd2bb5
 
 const Stack = createStackNavigator();
 const BottomTab = createMaterialBottomTabNavigator();
@@ -43,15 +49,22 @@ function MenuRodape(){
                         tabBarIcon: ({color}) => ( 
                         <MaterialIcons name='account-circle' color={color} size={30}/>)}} 
                     />
+<<<<<<< HEAD
           </BottomTab.Navigator>
     );
+=======
+
+                </BottomTab.Navigator>
+    );  
+>>>>>>> 0d713d33760dea1ddbe50589f504e345c6fd2bb5
 }
 
-function Routes(){
+const Routes = () => {
     return(
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen 
+<<<<<<< HEAD
                     name='Menu Principal'
                     component={MenuRodape}
                     options={{
@@ -60,6 +73,21 @@ function Routes(){
                             <Image style={{height: 91, width: 408}} 
                             source={require('../assets/Logo.png')}/>,
                     }}
+=======
+                name='J'
+                component={BotRoute}
+                options={{
+                    headerTitle: () => 
+                            <Image style={{height: 55, width: 80, borderRadius:20, borderWidth:0.5,borderColor:'black'}} 
+                            source={require('../assets/JKM.png')}/>,
+                    headerRight: () => (
+                        <ClickableIcon />
+                    ),
+                    headerStyle: {
+                        backgroundColor:'orange'
+                    }
+                }} 
+>>>>>>> 0d713d33760dea1ddbe50589f504e345c6fd2bb5
                 />
 
                 <Stack.Screen 
@@ -79,6 +107,20 @@ function Routes(){
                         headerTitle:'Voltar',
                     }}
                 /> 
+<<<<<<< HEAD
+=======
+                <Stack.Screen 
+                name="Login" 
+                component={LoginPage} 
+                options={{
+                    tittle: 'Acesse',
+                    headerTitleStyle:{
+                        fontFamily: 'KanitBold'
+                    },
+                }} 
+                /> 
+
+>>>>>>> 0d713d33760dea1ddbe50589f504e345c6fd2bb5
             </Stack.Navigator> 
         </NavigationContainer>
     );

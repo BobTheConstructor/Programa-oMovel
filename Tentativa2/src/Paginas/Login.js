@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 
@@ -61,3 +62,16 @@ const styles = StyleSheet.create({
 });
 
 export default LoginScreen;
+=======
+import React from 'react';
+import { View, TextInput, Text, StyleSheet, ViewComponent } from 'react-native';
+import { ScrollView } from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import { useNavigation } from '@react-navigation/native';
+
+export default function LoginPage() {
+    return (
+        <View><Text>texto de exemplo</Text></View>
+    )
+}
+>>>>>>> 0d713d33760dea1ddbe50589f504e345c6fd2bb5
