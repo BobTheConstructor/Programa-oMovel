@@ -2,11 +2,11 @@ import React from 'react';
 import { View, StyleSheet, Image} from 'react-native';
 import Swiper from 'react-native-swiper';
 
-export default function SwiperInit(){
+export default function SwiperT(){
     return(
         <Swiper style={styles.outdoor}
         
-        containerStyle={{ height: 300, flex: 0, borderColor:'black', borderWidth:0}}
+        containerStyle={{ height: '40%', flex: 0, borderColor:'black', borderWidth:0}}
         activeDotColor='#FFF'
         autoplay
         autoplayTimeout={5}

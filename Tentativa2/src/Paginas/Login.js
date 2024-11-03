@@ -1,16 +1,16 @@
-<<<<<<< HEAD
-import React, { useState } from 'react';
+/*import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { AuthContext } from '../components/AutenticadorLogin';
 
 const LoginScreen = ({ navigation }) => {
+  const { login } = useContext(AuthContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const handleLogin = () => {
-    if (username === 'user' && password === 'password') {
-      // Navega até outra tela se estiver correto
-      navigation.navigate('LoginInfo', { username });
+    if (username === 'User' && password === 'Pass') {
+      navigation.replace('LoginInfo',{username})
     } else {
       setError('Usuario ou Senha Errados');
     }
@@ -38,11 +38,53 @@ const LoginScreen = ({ navigation }) => {
   );
 };
 
+-----------------------------------------------------------------------------------------------------------------------
+*/
+import React, { useState } from 'react';
+import { View, TextInput, Button, Alert, StyleSheet, Text } from 'react-native';
+
+const LoginScreen = ({ onLogin, storedUserData }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = () => {
+    if (username === storedUserData.username && password === storedUserData.password) {
+      onLogin(username, password);
+    } else {
+      Alert.alert('Erro', 'Usuário ou senha incorretos');
+    }
+  };
+
+  return (
+  <View style={styles.container}>
+    <Text style={styles.title}>Login</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Usuário"
+        value={username}
+        onChangeText={setUsername}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Senha"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+      />
+    <Button title="Login" onPress={handleLogin} />
+  </View>
+  );
+};
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     padding: 20,
+    borderWidth: 2,
+    borderColor: 'black',
+    borderCurve: 4
   },
   title: {
     fontSize: 32,
@@ -62,16 +104,3 @@ const styles = StyleSheet.create({
 });
 
 export default LoginScreen;
-=======
-import React from 'react';
-import { View, TextInput, Text, StyleSheet, ViewComponent } from 'react-native';
-import { ScrollView } from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import { useNavigation } from '@react-navigation/native';
-
-export default function LoginPage() {
-    return (
-        <View><Text>texto de exemplo</Text></View>
-    )
-}
->>>>>>> 0d713d33760dea1ddbe50589f504e345c6fd2bb5

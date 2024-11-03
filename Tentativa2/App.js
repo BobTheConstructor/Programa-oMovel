@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, {useEffect, useCallback, useState } from 'react';
+import React, { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+/*import React, { useState, useEffect } from 'react';
 import { View, TextInput, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
@@ -9,7 +9,7 @@ import Products from '../components/Products'
 const StockScreen = ({ navigation }) => {
     const [stocks, setStocks] = useState([]);
             
-
+  
   const sampleStocks = [
     { name: "Apple Inc.", symbol: "AAPL", price: 150.75 },
     { name: "Microsoft Corporation", symbol: "MSFT", price: 299.50 },
@@ -52,7 +52,7 @@ const StockScreen = ({ navigation }) => {
         data={stocks}
         keyExtractor={item => item.symbol}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => navigation.navigate('StockDetail', { stock: item })}>
+          <TouchableOpacity onPress={() => navigation.navigate('Detail', { stock: item })}>
             <View style={styles.item}>
               <Text style={styles.symbol}>{item.symbol}</Text>
               <Text style={styles.price}>${item.price}</Text>
@@ -61,7 +61,7 @@ const StockScreen = ({ navigation }) => {
         )}
       />
       
-      {/*<Button title='aperta ae' onPress={() => navigation.navigate('Login')} ></Button>*/}
+      {/*<Button title='aperta ae' onPress={() => navigation.navigate('Login')} ></Button>
       
     </View>
 
@@ -112,5 +112,83 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
 })
+
+export default StockScreen;*/
+
+import React from 'react';
+import { View, Text, Image, FlatList, StyleSheet } from 'react-native';
+
+const products = [
+  {
+    id: '1',
+    name: 'Produto 1',
+    description: 'Descrição do Produto 1',
+    price: 'R$ 10,00',
+    image: 'https://via.placeholder.com/150', 
+  },
+  {
+    id: '2',
+    name: 'Produto 2',
+    description: 'Descrição do Produto 2',
+    price: 'R$ 20,00',
+    image: 'https://via.placeholder.com/150',
+  },
+  {
+    id: '3',
+    name: 'Produto 3',
+    description: 'Descrição do Produto 3',
+    price: 'R$ 30,00',
+    image: 'https://via.placeholder.com/150',
+  },
+];
+
+const StockScreen = () => {
+  const renderItem = ({ item }) => (
+    <View style={styles.productContainer}>
+      <Image source={{ uri: item.image }} style={styles.image} />
+      <Text style={styles.name}>{item.name}</Text>
+      <Text>{item.description}</Text>
+      <Text style={styles.price}>{item.price}</Text>
+    </View>
+  );
+
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={products}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+  productContainer: {
+    marginBottom: 20,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+  },
+  image: {
+    width: '100%',
+    height: 150,
+    resizeMode: 'cover',
+    marginBottom: 10,
+  },
+  name: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  price: {
+    color: 'green',
+    fontWeight: 'bold',
+  },
+});
 
 export default StockScreen;
