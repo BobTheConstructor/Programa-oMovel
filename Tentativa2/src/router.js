@@ -10,7 +10,7 @@ import DetailScreen from './Paginas/Detail';
 import StockScreen from './Paginas/Estoque';
 import LoginScreen from './Paginas/Login';
 import ProfileScreen from './Paginas/Usuarios';
-
+import RegisterScreen from './Paginas/Registro';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -85,7 +85,7 @@ const Routes = () => {
                             <Image style={{height: '100%', width: '100%'}} 
                             source={require('../assets/Logo.png')}/>,
                     }}
-                    />
+                />
                 <Stack.Screen 
                     name="Detail" 
                     component={DetailScreen} 
@@ -93,13 +93,19 @@ const Routes = () => {
                         headerTitleStyle:{fontFamily: 'KanitBold',},
                         headerTitle:'Voltar',
                     }}
-                    />
+                />
+                <Stack.Screen 
+                    name="Registro"
+                    component={RegisterScreen}
+                    options={{
+                        headerTitle: () => (null),
+                        cardStyle: { backgroundColor: 'transparent'},  
+                    }}
+                />
                 </Stack.Navigator>
             ):(
                 <LoginScreen onLogin={handleLogin} storedUserData={userData} />
-            )}
-                
-
+            )}                
         </NavigationContainer>
         
     );
