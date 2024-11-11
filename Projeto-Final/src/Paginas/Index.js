@@ -1,4 +1,4 @@
-import React from 'react';
+{/*import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -100,4 +100,4 @@ const styles = StyleSheet.create({
         paddingLeft:20,
         fontFamily:'KanitBold',
     }
-});
+});*/}

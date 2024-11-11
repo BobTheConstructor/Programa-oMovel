@@ -14,26 +14,43 @@ import ProfileScreen from './Paginas/Usuarios';
 import RecuperarSenha from './Paginas/RecuperarSenha';
 import EstoqueScreen from './Paginas/Estoque';
 
-// Contexto de autenticação
-import { useAuth } from './context/AuthContext';
-
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 const Routes = () => {
-  const { isLoggedIn, login, logout, userData } = useAuth();  // Usando o contexto para obter o estado de login e dados do usuário
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    // Verificar o estado de login ao carregar o aplicativo
+    const checkLoginStatus = async () => {
+      const user = await AsyncStorage.getItem('usuario');
+      if (user) {
+        setUserData(JSON.parse(user));
+        setIsLoggedIn(true);
+      }
+    };
+
+    checkLoginStatus();
+  }, []);
+
+  const logout = async () => {
+    await AsyncStorage.removeItem('usuario');
+    setUserData(null);
+    setIsLoggedIn(false);
+  };
 
   const MenuRodape = () => {
     return (
-      <Tab.Navigator initialRouteName="Home" barStyle={{ backgroundColor: '#f7a700' }} activeColor="white" inactiveColor="black" backBehavior="initialRoute">
-        <Tab.Screen
+      <Tab.Navigator initialRouteName="Home" barStyle={{ backgroundColor: '#f7a700' }} activeColor="white" inactiveColor="black">
+        {/*<Tab.Screen
           name="Home"
           component={HomeScreen}
           options={{
             tabBarLabel: 'Inicio',
             tabBarIcon: ({ color }) => <MaterialIcons name="home" color={color} size={28} />,
           }}
-        />
+        />*/}
         <Tab.Screen
           name="Estoque"
           component={EstoqueScreen}
@@ -53,9 +70,8 @@ const Routes = () => {
             <ProfileScreen
               username={userData?.username}
               password={userData?.password}
-              onUpdate={() => console.log("Update Profile")}  // Se necessário, adicione uma função de atualização de perfil
               userData={userData}
-              onLogout={logout}  // Função de logout vindo do contexto
+              onLogout={logout}
             />
           )}
         </Tab.Screen>
