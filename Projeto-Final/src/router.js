@@ -6,8 +6,8 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Importando as páginas
-import HomeScreen from './Paginas/Index';
+// importando as paginas
+// import HomeScreen from './Paginas/Index';
 import DetailScreen from './Paginas/Detail';
 import LoginScreen from './Paginas/Login';
 import ProfileScreen from './Paginas/Usuarios';
@@ -42,7 +42,12 @@ const Routes = () => {
 
   const MenuRodape = () => {
     return (
+<<<<<<< HEAD
       <Tab.Navigator initialRouteName="Home" barStyle={{ backgroundColor: '#f7a700' }} activeColor="white" inactiveColor="black">
+=======
+      <Tab.Navigator initialRouteName="Home" barStyle={{ backgroundColor: '#f7a700' }} activeColor="white" inactiveColor="black" backBehavior="initialRoute">
+        
+>>>>>>> c174e760baef42a8e19bffe77201083ad6eb779d
         {/*<Tab.Screen
           name="Home"
           component={HomeScreen}
@@ -61,11 +66,13 @@ const Routes = () => {
         />
         <Tab.Screen
           name="Usuario"
+          component={ProfileScreen}
           options={{
             tabBarLabel: 'Profile',
             tabBarIcon: ({ color }) => <MaterialIcons name="account-circle" color={color} size={28} />,
           }}
         >
+<<<<<<< HEAD
           {() => (
             <ProfileScreen
               username={userData?.username}
@@ -74,6 +81,8 @@ const Routes = () => {
               onLogout={logout}
             />
           )}
+=======
+>>>>>>> c174e760baef42a8e19bffe77201083ad6eb779d
         </Tab.Screen>
       </Tab.Navigator>
     );
@@ -81,7 +90,7 @@ const Routes = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={isLoggedIn ? "PaginaPrincipal" : "Login"}>
+      <Stack.Navigator initialRouteName={'Login'}>
         <Stack.Screen
           name="PaginaPrincipal"
           component={MenuRodape}
@@ -91,14 +100,14 @@ const Routes = () => {
             headerBackground: () => <Image style={{ height: '100%', width: '100%' }} source={require('../assets/Logo.png')} />,
           }}
         />
-        <Stack.Screen
+        {/*<Stack.Screen
           name="Detail"
           component={DetailScreen}
           options={{
             headerTitleStyle: { fontFamily: 'KanitBold' },
             headerTitle: 'Voltar',
           }}
-        />
+        />*/}
         <Stack.Screen
           name="Login"
           component={LoginScreen}

@@ -100,4 +100,8 @@ const styles = StyleSheet.create({
         paddingLeft:20,
         fontFamily:'KanitBold',
     }
+<<<<<<< HEAD:Projeto-Final/src/Paginas/Index.js
 });*/}
+=======
+}); */}
+>>>>>>> c174e760baef42a8e19bffe77201083ad6eb779d:Projeto-Final/src/Paginas/Promoções.js
