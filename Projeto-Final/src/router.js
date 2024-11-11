@@ -1,23 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Image } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// importando as paginas
+// Importando as páginas
 import HomeScreen from './Paginas/Index';
 import DetailScreen from './Paginas/Detail';
 import LoginScreen from './Paginas/Login';
 import ProfileScreen from './Paginas/Usuarios';
 import RecuperarSenha from './Paginas/RecuperarSenha';
-import EstoqueScreen from './Paginas/Estoque'; 
+import EstoqueScreen from './Paginas/Estoque';
 
+// Contexto de autenticação
+import { useAuth } from './context/AuthContext';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 const Routes = () => {
+  const { isLoggedIn, login, logout, userData } = useAuth();  // Usando o contexto para obter o estado de login e dados do usuário
 
   const MenuRodape = () => {
     return (
@@ -47,11 +51,11 @@ const Routes = () => {
         >
           {() => (
             <ProfileScreen
-              username={userData.username}
-              password={userData.password}
-              onUpdate={handleUpdate}
+              username={userData?.username}
+              password={userData?.password}
+              onUpdate={() => console.log("Update Profile")}  // Se necessário, adicione uma função de atualização de perfil
               userData={userData}
-              onLogout={handleLogout}
+              onLogout={logout}  // Função de logout vindo do contexto
             />
           )}
         </Tab.Screen>
@@ -83,7 +87,6 @@ const Routes = () => {
           name="Login"
           component={LoginScreen}
           options={{ headerShown: false }}
-          initialParams={{ onLogin: handleLogin }} // Passa a função de login como parâmetro
         />
         <Stack.Screen
           name="RecuperarSenha"
