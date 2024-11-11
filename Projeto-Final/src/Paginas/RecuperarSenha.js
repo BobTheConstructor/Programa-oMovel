@@ -2,8 +2,18 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, Alert, StyleSheet, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// Função para gerar a senha aleatória
+const gerarSenhaAleatoria = (tamanho = 8) => {
+  const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let senha = '';
+  for (let i = 0; i < tamanho; i++) {
+    const indice = Math.floor(Math.random() * caracteres.length);
+    senha += caracteres[indice];
+  }
+  return senha;
+};
 
 const RecuperarSenha = () => {
   const [username, setUsername] = useState('');
@@ -20,7 +30,7 @@ const RecuperarSenha = () => {
       const storedUsername = await AsyncStorage.getItem('usuario');
       
       if (storedUsername === username) {
-        const novaSenha = '1234'; // Senha temporária
+        const novaSenha = gerarSenhaAleatoria(10); // Gera uma senha aleatória com 10 caracteres
         await AsyncStorage.setItem('senha', novaSenha);
         Alert.alert('Sucesso', `Senha redefinida para: ${novaSenha}. Por favor, altere-a após o login.`);
         navigation.goBack(); // Retorna à tela de login

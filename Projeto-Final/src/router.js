@@ -10,7 +10,6 @@ import DetailScreen from './Paginas/Detail';
 import StockScreen from './Paginas/Estoque';
 import LoginScreen from './Paginas/Login';
 import ProfileScreen from './Paginas/Usuarios';
-import RegisterScreen from './Paginas/Registro';
 import RecuperarSenha from './Paginas/RecuperarSenha'; // Importa a nova tela
 
 const Stack = createStackNavigator();
@@ -33,7 +32,6 @@ const Routes = () => {
     setIsLoggedIn(false);
   };
 
-  // MenuRodape (Bottom Tab Navigator)
   const MenuRodape = () => {
     return (
       <Tab.Navigator initialRouteName="Home" barStyle={{ backgroundColor: '#f7a700' }} activeColor="white" inactiveColor="black" backBehavior="initialRoute">
@@ -76,52 +74,39 @@ const Routes = () => {
 
   return (
     <NavigationContainer>
-      
-      
-       {/* Quando Se Logar apareça a primera pagina, show the main app stack with the bottom tab navigator*/}
-        <Stack.Navigator initialRouteName="Login">
-        
-          <Stack.Screen
-            name="PaginaPrincipal"
-            component={MenuRodape}
-            options={{
-              headerTitle: () => null,
-              cardStyle: { backgroundColor: 'transparent' },
-              headerBackground: () => <Image style={{ height: '100%', width: '100%' }} source={require('../assets/Logo.png')} />,
-            }}
-          />
-          <Stack.Screen
-            name="Detail"
-            component={DetailScreen}
-            options={{
-              headerTitleStyle: { fontFamily: 'KanitBold' },
-              headerTitle: 'Voltar',
-            }}
-          />
-          <Stack.Screen
-            name="Registro"
-            component={RegisterScreen}
-            options={{
-              headerTitle: () => null,
-              cardStyle: { backgroundColor: 'transparent' },
-            }}
-          />
-     
-        {/*} If not logged in, show the login stack*/}
-        
-          <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-          <Stack.Screen
-            name="RecuperarSenha"
-            component={RecuperarSenha}
-            options={{
-              headerTitleStyle: { fontFamily: 'KanitBold' },
-              headerTitle: 'Voltar',
-            }}
-          />
-        
-        </Stack.Navigator>
-      
-      
+      <Stack.Navigator initialRouteName={isLoggedIn ? "PaginaPrincipal" : "Login"}>
+        <Stack.Screen
+          name="PaginaPrincipal"
+          component={MenuRodape}
+          options={{
+            headerTitle: () => null,
+            cardStyle: { backgroundColor: 'transparent' },
+            headerBackground: () => <Image style={{ height: '100%', width: '100%' }} source={require('../assets/Logo.png')} />,
+          }}
+        />
+        <Stack.Screen
+          name="Detail"
+          component={DetailScreen}
+          options={{
+            headerTitleStyle: { fontFamily: 'KanitBold' },
+            headerTitle: 'Voltar',
+          }}
+        />
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{ headerShown: false }}
+          initialParams={{ onLogin: handleLogin }} // Passa a função de login como parâmetro
+        />
+        <Stack.Screen
+          name="RecuperarSenha"
+          component={RecuperarSenha}
+          options={{
+            headerTitleStyle: { fontFamily: 'KanitBold' },
+            headerTitle: 'Voltar',
+          }}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
