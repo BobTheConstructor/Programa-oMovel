@@ -76,11 +76,13 @@ const Routes = () => {
 
   return (
     <NavigationContainer>
-      {isLoggedIn ? (
-        // If logged in, show the main app stack with the bottom tab navigator
-        <Stack.Navigator>
+      
+      
+       {/* Quando Se Logar apareça a primera pagina, show the main app stack with the bottom tab navigator*/}
+        <Stack.Navigator initialRouteName="Login">
+        
           <Stack.Screen
-            name="Home"
+            name="PaginaPrincipal"
             component={MenuRodape}
             options={{
               headerTitle: () => null,
@@ -104,10 +106,9 @@ const Routes = () => {
               cardStyle: { backgroundColor: 'transparent' },
             }}
           />
-        </Stack.Navigator>
-      ) : (
-        // If not logged in, show the login stack
-        <Stack.Navigator>
+     
+        {/*} If not logged in, show the login stack*/}
+        
           <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
           <Stack.Screen
             name="RecuperarSenha"
@@ -117,8 +118,10 @@ const Routes = () => {
               headerTitle: 'Voltar',
             }}
           />
+        
         </Stack.Navigator>
-      )}
+      
+      
     </NavigationContainer>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; 
+import React, { useEffect, useState } from 'react'; 
 import { View, Text, TextInput, Alert, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const LoginScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const navigation = useNavigation();
 
   // Função para cadastrar um novo usuário
@@ -38,13 +38,18 @@ const LoginScreen = () => {
     try {
       const storedUsername = await AsyncStorage.getItem('usuario');  // Recuperando dados armazenados
       const storedPassword = await AsyncStorage.getItem('senha');
-
-      if (storedUsername === username && storedPassword === password) {
-        setIsLoggedIn(true);
+      if (storedUsername === 'admin' && storedPassword === 'admin') {
+        // Quando o administrador esta logado
+        setIsAdmin(true);
         Alert.alert('Sucesso', 'Login realizado com sucesso!');
-        navigation.navigate('HomeScreen');
+        navigation.navigate('PaginaPrincipal');
+      } else if (storedUsername === username && storedPassword === password) {
+        // Quando outro usuario esta logado
+        Alert.alert('Sucesso', 'Login realizado com sucesso!');
+        navigation.navigate('PaginaPrincipal');
       } else {
-        Alert.alert('Erro', 'Nome de usuário ou senha incorretos');
+        // falha no login
+        Alert.alert('Erro', 'Nome de usuário ou senha incorretos, Caso não exista, Clique em "Cadastrar"');
       }
     } catch (e) {
       console.log('Erro ao fazer login', e);
@@ -60,8 +65,6 @@ const LoginScreen = () => {
 
   return (
     <View style={styles.container}>
-      {!isLoggedIn ? (
-        <>
           <View style={styles.logoContainer}>
             <Animatable.Image
               source={require('../../assets/JKM.png')}  // Imagem do logo
@@ -110,24 +113,20 @@ const LoginScreen = () => {
                 style={styles.icon}
               />
             </View>
-            <TouchableOpacity onPress={() => navigation.navigate('RecuperarSenha')}>
-              <Text style={styles.forgotPasswordText}>Esqueci minha senha</Text>
-            </TouchableOpacity>
+            <View style={styles.buttonContainer}>
+              <Text style={styles.buttonText} onPress={() => navigation.navigate('RecuperarSenha')}>
+                Esqueceu a Senha?
+              </Text>
+              <MaterialCommunityIcons
+                name="account-question"
+                size={40}
+                color="black"
+                onPress={() => navigation.navigate('RecuperarSenha')}
+                style={styles.icon}
+              />
+            </View>
           </Animatable.View>
-        </>
-      ) : (
-        <>
-          <Text style={styles.title}>Bem-vindo, {username}!</Text>
-          {/* Botão de logout */}
-          <MaterialCommunityIcons
-            name="logout"
-            size={40}
-            color="black"  
-            onPress={deslogar}
-            style={styles.logoutIcon}
-          />
-        </>
-      )}
+       
     </View>
   );
 };
@@ -158,19 +157,21 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     justifyContent: 'center',
+    flex:1,
     alignItems: 'center',
-    height: '30%',
-    width: '80%',
-    marginBottom: 40,
+    width: '100%',
+    marginLeft: 50,
+    marginBottom: 20,
   },
   logoImage: {
-    width: '100%',
+    width: '150%',
   },
   formContainer: {
-    padding: 20,
-    width: '90%',
+    padding: 30,
+    width: '100%',
     backgroundColor: 'orange',
     borderTopRightRadius: 50,
+    flex: 1,
     borderTopLeftRadius: 50,
     shadowColor: '#000',
     shadowOpacity: 0.25,
@@ -181,14 +182,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 5,
     borderTopWidth: 2,
     borderColor: 'black',
     paddingVertical: 15,
   },
   buttonText: {
     fontSize: 20,
-    width: '90%',
+    width: '88%',
     textAlign: 'center',
   },
   icon: {

@@ -52,8 +52,8 @@ const RecuperarSenha = () => {
           value={username}
           onChangeText={setUsername}
         />
-        <View style={styles.botao}>
-          <Button title="Enviar" onPress={handlePasswordReset} color="#f7a700" />
+        <View style={styles.button}>
+          <Button title="Enviar" onPress={handlePasswordReset} color='#000'/>
         </View>
       </Animatable.View>
     </View>
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     height: '90%',
     width: '90%',
     flex: 2,
-  }
+  },
 });
 
 export default RecuperarSenha;
