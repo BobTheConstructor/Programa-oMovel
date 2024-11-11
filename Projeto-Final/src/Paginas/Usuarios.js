@@ -16,43 +16,46 @@ const ProfileScreen = ({ username, password, onUpdate, userData, onLogout }) => 
         <Text>Home Screen</Text>
         <Text>Usuário: {userData.username}</Text>
         <Text>Senha: {userData.password}</Text>
+        <Text>Função: {userData.role}</Text> {/* Exibe a função do usuário */}
         <Button title="Logout" onPress={onLogout} />
-      
-      <View style={styles.change}>
-        <TextInput
-          placeholder="Novo Usuário"
-          value={newUsername}
-          onChangeText={setNewUsername}
-          style={{ borderWidth: 1, marginBottom: 10, padding: 10 }}
-        />
-        <TextInput
-          placeholder="Nova Senha"
-          value={newPassword}
-          onChangeText={setNewPassword}
-          secureTextEntry
-          style={{ borderWidth: 1, marginBottom: 10, padding: 10 }}
-        />
-        <Button title="Salvar" onPress={handleUpdate} />
+
+        {userData.role === 'admin' && ( /* Verifica se o usuário é admin antes de mostrar as opções de administração */
+          <View style={styles.change}>
+            <TextInput
+              placeholder="Novo Usuário"
+              value={newUsername}
+              onChangeText={setNewUsername}
+              style={{ borderWidth: 1, marginBottom: 10, padding: 10 }}
+            />
+            <TextInput
+              placeholder="Nova Senha"
+              value={newPassword}
+              onChangeText={setNewPassword}
+              secureTextEntry
+              style={{ borderWidth: 1, marginBottom: 10, padding: 10 }}
+            />
+            <Button title="Salvar" onPress={handleUpdate} />
+          </View>
+        )}
       </View>
-    </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     justifyContent: 'center',
-    flex:1,
+    flex: 1,
     padding: 20,
   },
-  conteudo:{
-    borderRadius:10,
+  conteudo: {
+    borderRadius: 10,
     borderWidth: 1,
     borderColor: 'black',
   },
-  change:{
-    paddingTop:50
-  }
-})
+  change: {
+    paddingTop: 50,
+  },
+});
 
 export default ProfileScreen;

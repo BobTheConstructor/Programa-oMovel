@@ -3,10 +3,9 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import { ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Swiper from '../components/TrocaFotos';
-
 
 export default function HomeScreen() {
     const navigation = useNavigation();
@@ -20,14 +19,11 @@ export default function HomeScreen() {
                 <Text style={styles.title}>Novidades</Text>
             </View>
 
-
             <Swiper/>
 
             <View style={[styles.content,{borderBottomWidth:2}]}>
                 <Text style={styles.title}>Acesso Direto</Text>
             </View>
-
-
 
             <TouchableOpacity style={styles.escolhas} onPress={() => ({})}>  
                 <Image source={require('../../assets/Pex1.jpg')} style={styles.cover}/> 
@@ -46,7 +42,6 @@ export default function HomeScreen() {
                 <Text style={styles.texto}>Caminhões</Text>
                 <MaterialCommunityIcons name='truck' color='black' size={30} style={{paddingVertical:20, paddingRight:10}}/>
             </TouchableOpacity>
-           
 
             <TouchableOpacity style={styles.escolhas} onPress={() => ({})}>
                 <Image source={require('../../assets/Pex1.jpg')} style={styles.cover}/>     
@@ -82,7 +77,7 @@ const styles = StyleSheet.create({
     },
     content:{
         flexDirection: 'row',
-        widht: '100%',
+        width: '100%', 
         alignItems: 'center',
         borderBottomColor:'black',
     },
@@ -105,4 +100,4 @@ const styles = StyleSheet.create({
         paddingLeft:20,
         fontFamily:'KanitBold',
     }
-})
+});
