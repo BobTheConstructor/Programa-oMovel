@@ -26,25 +26,25 @@ export default function HomeScreen() {
             </View>
 
             <TouchableOpacity style={styles.escolhas} onPress={() => ({})}>  
-                <Image source={require('../../assets/Pex1.jpg')} style={styles.cover}/> 
+                <Image source={require('../../assets/Carro.jpg')} style={styles.cover}/> 
                 <Text style={styles.texto}>Carros</Text>
                 <MaterialCommunityIcons name='car-side' color='black' size={30} style={{paddingVertical:20, paddingRight:10}}/>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.escolhas} onPress={() => ({})}> 
-                <Image source={require('../../assets/Pex1.jpg')} style={styles.cover}/>    
+                <Image source={require('../../assets/Moto.jpg')} style={styles.cover}/>    
                 <Text style={styles.texto}>Motos</Text>
                 <MaterialCommunityIcons name='motorbike' color='black' size={30} style={{paddingVertical:20, paddingRight:10}}/>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.escolhas} onPress={() => ({})}>
-                <Image source={require('../../assets/Pex1.jpg')} style={styles.cover}/>     
+                <Image source={require('../../assets/Caminhao.jpg')} style={styles.cover}/>     
                 <Text style={styles.texto}>Caminhões</Text>
                 <MaterialCommunityIcons name='truck' color='black' size={30} style={{paddingVertical:20, paddingRight:10}}/>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.escolhas} onPress={() => ({})}>
-                <Image source={require('../../assets/Pex1.jpg')} style={styles.cover}/>     
+                <Image source={require('../../assets/Bicicleta.jpg')} style={styles.cover}/>     
                 <Text style={styles.texto}>Bicicletas</Text>
                 <MaterialCommunityIcons name='bike' color='black' size={30} style={{paddingVertical:20, paddingRight:10}}/>
             </TouchableOpacity>

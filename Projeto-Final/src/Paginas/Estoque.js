@@ -1,194 +1,240 @@
-/*import React, { useState, useEffect } from 'react';
-import { View, TextInput, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
-import { ScrollView } from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import { useNavigation } from '@react-navigation/native';
+// src/screens/EstoqueScreen.js
+import React, { useState, useEffect } from 'react';
+import { ScrollView, View, TextInput, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Card } from 'react-native-paper';
+import { Picker } from '@react-native-picker/picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import Products from '../components/Products'
-
-const StockScreen = ({ navigation }) => {
-    const [stocks, setStocks] = useState([]);
-            
+// Componente de Estoque
+const EstoqueScreen = () => {
+  const [produtoNome, setProdutoNome] = useState('');
+  const [produtoValor, setProdutoValor] = useState('');
+  const [produtoMedida, setProdutoMedida] = useState('');
+  const [produtoEstoque, setProdutoEstoque] = useState('');
+  const [produtoTipo, setProdutoTipo] = useState('');
+  const [itens, setItens] = useState([]);
   
-  const sampleStocks = [
-    { name: "Apple Inc.", symbol: "AAPL", price: 150.75 },
-    { name: "Microsoft Corporation", symbol: "MSFT", price: 299.50 },
-    { name: "Alphabet Inc.", symbol: "GOOGL", price: 2700.00 },
-    { name: "Amazon.com, Inc.", symbol: "AMZN", price: 3345.00 },
-    { name: "Tesla, Inc.", symbol: "TSLA", price: 737.50 },
-    { name: "Meta Platforms, Inc.", symbol: "FB", price: 352.55 },
-    { name: "NVIDIA Corporation", symbol: "NVDA", price: 220.00 },
-    { name: "Berkshire Hathaway Inc.", symbol: "BRK.B", price: 286.33 },
-    { name: "Johnson & Johnson", symbol: "JNJ", price: 175.00 },
-    { name: "Visa Inc.", symbol: "Visa", price: 228.85 },
-  ];
 
-  useEffect(() => {
-    const fetchStocks = async () => {
-      try {
-        setStocks(sampleStocks);
-      } catch (error) {
-        console.error(error);
+  // Função para carregar os produtos do AsyncStorage
+  const carregarProdutos = async () => {
+    try {
+      const produtosSalvos = await AsyncStorage.getItem('produtos');
+      if (produtosSalvos !== null) {
+        setItens(JSON.parse(produtosSalvos));
       }
-    };
-    
-    fetchStocks();
+    } catch (error) {
+      console.log("Erro ao carregar os produtos:", error);
+    }
+  };
+
+  // Função para salvar os produtos no AsyncStorage
+  const salvarProdutos = async (produtos) => {
+    try {
+      await AsyncStorage.setItem('produtos', JSON.stringify(produtos));
+    } catch (error) {
+      console.log("Erro ao salvar os produtos:", error);
+    }
+  };
+
+  // Função para adicionar um novo produto
+  const adicionarProduto = () => {
+    if (produtoNome && produtoValor && produtoEstoque && produtoMedida && produtoTipo) {
+      const novoProduto = {
+        id: itens.length + 1,
+        nome: produtoNome,
+        valor: parseFloat(produtoValor),
+        Estocados: parseInt(produtoEstoque),
+        Medida: parseFloat(produtoMedida),
+        Tipo: produtoTipo
+      };
+      const novosItens = [...itens, novoProduto];
+      setItens(novosItens);
+      salvarProdutos(novosItens);  // Salvar os novos produtos no AsyncStorage
+      // Limpar os campos após adicionar
+      setProdutoNome('');
+      setProdutoValor('');
+      setProdutoEstoque('');
+      setProdutoMedida('');
+      setProdutoTipo('');
+    } else {
+      alert('Por favor, preencha todos os campos e selecione uma foto!');
+    }
+  };
+
+  // Função para excluir um produto
+  const excluirProduto = (id) => {
+    const novosItens = itens.filter(item => item.id !== id);
+    setItens(novosItens);
+    salvarProdutos(novosItens);  // Salvar a lista de produtos atualizada no AsyncStorage
+  };
+
+  // Carregar os produtos ao iniciar o componente
+  useEffect(() => {
+    carregarProdutos();
   }, []);
 
   return (
-    <View style={styles.container}>
-        <View style={styles.header}>
-            <View style={styles.inputArea}>
-                <MaterialIcons
-                    name="search" size={24} color="black"
-                />
-                <TextInput showsVerticalScrollIndicator='false'
-                    placeholder="O que está Procurando"
-                    style={styles.input}
-                />
-            </View>
-        </View>
-      <FlatList 
-        data={stocks}
-        keyExtractor={item => item.symbol}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => navigation.navigate('Detail', { stock: item })}>
-            <View style={styles.item}>
-              <Text style={styles.symbol}>{item.symbol}</Text>
-              <Text style={styles.price}>${item.price}</Text>
-            </View>
-          </TouchableOpacity>
+
+    
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.titulo}>Adionar Um Produto</Text>
+      <View style={styles.formContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Nome do Produto"
+          value={produtoNome}
+          onChangeText={setProdutoNome}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Tamanho"
+          value={produtoMedida}
+          keyboardType="numeric"
+          onChangeText={setProdutoMedida}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Quantidade no Estoque"
+          value={produtoEstoque}
+          keyboardType="numeric"
+          onChangeText={setProdutoEstoque}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Valor"
+          value={produtoValor}
+          keyboardType="numeric"
+          onChangeText={setProdutoValor}
+        />
+        <Picker
+        selectedValue={produtoValor}
+        style={styles.picker}
+        onValueChange={(produtoTipo) => setProdutoTipo(produtoTipo)}
+        >
+          <Picker.Item label="Carro" value="carro" />
+          <Picker.Item label="Moto" value="moto" />
+          <Picker.Item label="Caminhão" value="caminhao" />
+          <Picker.Item label="Bicicleta" value="bicicleta" />
+        </Picker>
+        <Button title="Adicionar Produto" onPress={adicionarProduto} />
+      </View>
+      <Text style={styles.titulo}> Produtos Listados</Text>
+      <View style={styles.listContainer}>
+        {itens.length === 0 ? (
+          <Text style={styles.emptyList}>Nenhum produto no estoque</Text>
+        ) : (
+          itens.map(item => (
+            <Card key={item.id} style={styles.card}>
+              <View style={styles.cardContent}>
+                <View style={styles.productInfo}>
+                  <Text style={styles.productName}>{item.nome}</Text>
+                  <View style={{flexDirection: 'row',padding:5}}>
+                  <Text style={(styles.productSize,{width:'65%'})}>Medida: {item.Medida}</Text>
+                  <Text style={(styles.productSize,{width:'35%'})}>Estocados: {item.Estocados}</Text>
+                  </View>
+                  <View style={{flexDirection: 'row', padding:5}}>
+                  <Text style={(styles.productPrice, {width:'65%'})}>Valor: R${item.valor.toFixed(2)}</Text>
+                  <Text style={(styles.productSize,{width:'35%'})}>Tipo: {item.Tipo}</Text>
+                  </View>
+                  <TouchableOpacity onPress={() => excluirProduto(item.id)} style={styles.deleteButton}>
+                    <Text style={styles.deleteButtonText}>Excluir</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Card>
+          ))
         )}
-      />
-      
-      {/*<Button title='aperta ae' onPress={() => navigation.navigate('Login')} ></Button>
-      
-    </View>
-
-  );
-};
-
-const styles = StyleSheet.create({
-    header:{
-        paddingHorizontal: 15,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-        marginVertical: 15,
-    },
-    inputArea:{
-        paddingHorizontal: 15,
-        flexDirection: 'row',
-        alignItems: 'center',
-        width: '98%',
-        backgroundColor: '#fff',
-        elevation: 2,
-        paddingHorizontal: 10,
-        height: 37,
-        borderRadius: 10,
-    },
-    input:{
-        fontFamily: 'KanitRegular',
-        paddingHorizontal: 10,
-        fontSize: 13,
-        width: '90%',
-        color: 'black',
-    },
-    container: {
-        flex: 1,
-        paddingHorizontal: 15,
-    },
-    item: {
-        padding: 15,
-        borderBottomWidth: 1,
-        borderBottomColor: '#cccccc',
-    },
-    symbol: {
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-    price: {
-        fontSize: 16,
-    },
-})
-
-export default StockScreen;*/
-
-import React from 'react';
-import { View, Text, Image, FlatList, StyleSheet } from 'react-native';
-
-const products = [
-  {
-    id: '1',
-    name: 'Produto 1',
-    description: 'Descrição do Produto 1',
-    price: 'R$ 10,00',
-    image: 'https://via.placeholder.com/150', 
-  },
-  {
-    id: '2',
-    name: 'Produto 2',
-    description: 'Descrição do Produto 2',
-    price: 'R$ 20,00',
-    image: 'https://via.placeholder.com/150',
-  },
-  {
-    id: '3',
-    name: 'Produto 3',
-    description: 'Descrição do Produto 3',
-    price: 'R$ 30,00',
-    image: 'https://via.placeholder.com/150',
-  },
-];
-
-const StockScreen = () => {
-  const renderItem = ({ item }) => (
-    <View style={styles.productContainer}>
-      <Image source={{ uri: item.image }} style={styles.image} />
-      <Text style={styles.name}>{item.name}</Text>
-      <Text>{item.description}</Text>
-      <Text style={styles.price}>{item.price}</Text>
-    </View>
-  );
-
-  return (
-    <View style={styles.container}>
-      <FlatList
-        data={products}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 20,
+    padding: 16,
+    flexGrow: 1,
   },
-  productContainer: {
+  formContainer: {
     marginBottom: 20,
-    padding: 10,
-    borderWidth: 1,
+  },
+  input: {
+    height: 40,
     borderColor: '#ccc',
-    borderRadius: 5,
+    borderWidth: 1,
+    borderRadius: 4,
+    marginBottom: 12,
+    paddingHorizontal: 8,
   },
-  image: {
-    width: '100%',
-    height: 150,
-    resizeMode: 'cover',
-    marginBottom: 10,
+  selectImageButton: {
+    backgroundColor: '#4CAF50',
+    paddingVertical: 10,
+    borderRadius: 4,
+    marginBottom: 12,
+    alignItems: 'center',
   },
-  name: {
-    fontSize: 18,
+  picker: {
+    height: 50,
+    marginBottom: 20,
+  },
+  selectImageText: {
+    color: 'white',
     fontWeight: 'bold',
   },
-  price: {
-    color: 'green',
+  listContainer: {
+    marginTop: 20,
+  },
+  emptyList: {
+    textAlign: 'center',
+    fontSize: 16,
+    color: '#888',
+  },
+  titulo:{
+    fontSize:25, 
+    fontFamily: 'KanitBold', 
+    alignSelf:'center', 
+    paddingBottom:15,
+  },
+  //visual dos produtos
+  card: {
+    marginBottom: 12,
+    padding: 16,
+    borderRadius: 25,
+    backgroundColor: '#f9f9f9',
+    flexDirection: 'row',
+  },
+  cardContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  productInfo: {
+    width:'100%'
+  },
+  productName: {
+    fontSize: 25,
+    fontFamily: 'KanitBold',
+  },
+  productSize: {
+    fontSize: 14,
+    color: '#555',
+    fontFamily: 'KanitLight',
+  },
+  productPrice: {
+    fontSize: 18,
+    color: '#333',
+    fontFamily: 'KanitRegular',
+  },
+  deleteButton: {
+    backgroundColor: '#ff4d4d',
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 4,
+    marginTop: 10,
+    alignItems: 'center',
+  },
+  deleteButtonText: {
+    color: 'white',
     fontWeight: 'bold',
   },
 });
 
-export default StockScreen;
+export default EstoqueScreen;

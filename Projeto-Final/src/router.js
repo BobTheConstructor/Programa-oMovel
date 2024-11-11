@@ -5,33 +5,19 @@ import { Image } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
+// importando as paginas
 import HomeScreen from './Paginas/Index';
 import DetailScreen from './Paginas/Detail';
-import StockScreen from './Paginas/Estoque';
 import LoginScreen from './Paginas/Login';
 import ProfileScreen from './Paginas/Usuarios';
 import RegisterScreen from './Paginas/Registro';
-import RecuperarSenha from './Paginas/RecuperarSenha'; // Importa a nova tela
+import RecuperarSenha from './Paginas/RecuperarSenha';
+import EstoqueScreen from './Paginas/Estoque'; 
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 const Routes = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userData, setUserData] = useState({ username: 'user', password: 'password', role: 'user' });
-
-  const handleLogin = (username, password, role) => {
-    setIsLoggedIn(true);
-    setUserData({ username, password, role });
-  };
-
-  const handleUpdate = (newUsername, newPassword) => {
-    setUserData({ ...userData, username: newUsername, password: newPassword });
-  };
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-  };
 
   // MenuRodape (Bottom Tab Navigator)
   const MenuRodape = () => {
@@ -41,23 +27,23 @@ const Routes = () => {
           name="Home"
           component={HomeScreen}
           options={{
-            tabBarLabel: 'Index',
+            tabBarLabel: 'Inicio',
             tabBarIcon: ({ color }) => <MaterialIcons name="home" color={color} size={28} />,
           }}
         />
         <Tab.Screen
           name="Estoque"
-          component={StockScreen}
+          component={EstoqueScreen}
           options={{
             tabBarLabel: 'Estoque',
-            tabBarIcon: ({ color }) => <MaterialIcons name="warehouse" color={color} size={30} />,
+            tabBarIcon: ({ color }) => <MaterialIcons name="warehouse" color={color} size={28} />,
           }}
         />
         <Tab.Screen
           name="Usuario"
           options={{
             tabBarLabel: 'Profile',
-            tabBarIcon: ({ color }) => <MaterialIcons name="account-circle" color={color} size={30} />,
+            tabBarIcon: ({ color }) => <MaterialIcons name="account-circle" color={color} size={28} />,
           }}
         >
           {() => (
