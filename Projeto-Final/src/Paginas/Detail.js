@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 const DetailScreen = ({ route }) => {
@@ -8,7 +8,7 @@ const DetailScreen = ({ route }) => {
     <View style={styles.container}>
       <Text style={styles.symbol}>{stock.symbol}</Text>
       <Text style={styles.price}>Current Price: ${stock.price}</Text>
-      {/* Add more stock details as needed */}
+      {/* Add more stock details as needed 
     </View>
   );
 };
@@ -28,4 +28,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DetailScreen;
+export default DetailScreen;*/
