@@ -1,4 +1,4 @@
-let produtos = [];
+{/*let produtos = [];
 
 const getProdutos = () => {
   return produtos;
@@ -37,4 +37,5 @@ const deletarProduto = (id) => {
   return produtos;
 };
 
-export default { getProdutos, adicionarProduto, atualizarProduto, deletarProduto };
+export default { getProdutos, adicionarProduto, atualizarProduto, deletarProduto };*/}
+// parte da tentativa de utilizar o mongoDb guardada para caso de ser utilizada no futuro servindo de codigo exemplo

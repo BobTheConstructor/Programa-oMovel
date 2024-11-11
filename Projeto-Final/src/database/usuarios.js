@@ -1,4 +1,4 @@
-let usuarios = [];
+{/*let usuarios = [];
 
 const getUsuarioPorNome = (nomeUsuario) => {
   return usuarios.find(usuario => usuario.nomeUsuario === nomeUsuario);
@@ -20,4 +20,5 @@ const atualizarUsuario = (nomeUsuario, novoNomeUsuario, novaSenha, novoRole) => 
   return usuario;
 };
 
-export default { getUsuarioPorNome, adicionarUsuario, atualizarUsuario };
+export default { getUsuarioPorNome, adicionarUsuario, atualizarUsuario };*/}
+// parte da tentativa de utilizar o mongoDb guardada para caso de ser utilizada no futuro servindo de codigo exemplo

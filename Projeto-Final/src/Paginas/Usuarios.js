@@ -89,7 +89,7 @@ const ProfileScreen = () => {
         </View>
       </View>
 
-      {/* Password Reset Section */}
+      
       <View style={styles.passwordResetContainer}>
         <Text style={styles.title}>Redefinir Senha</Text>
         <TextInput

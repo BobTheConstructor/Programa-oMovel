@@ -13,8 +13,8 @@ const EstoqueScreen = () => {
   const [produtoEstoque, setProdutoEstoque] = useState('');
   const [produtoTipo, setProdutoTipo] = useState('');
   const [itens, setItens] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false); // Para verificar se o usuário é administrador
   
-
   // Função para carregar os produtos do AsyncStorage
   const carregarProdutos = async () => {
     try {
@@ -24,6 +24,18 @@ const EstoqueScreen = () => {
       }
     } catch (error) {
       console.log("Erro ao carregar os produtos:", error);
+    }
+  };
+
+  // Função para verificar se o usuário é administrador
+  const verificarUsuario = async () => {
+    try {
+      const usuario = await AsyncStorage.getItem('usuario'); // Aqui você verifica se o usuário é admin
+      if (usuario && JSON.parse(usuario).role === 'admin') {
+        setIsAdmin(true);
+      }
+    } catch (error) {
+      console.log("Erro ao verificar o usuário:", error);
     }
   };
 
@@ -38,46 +50,53 @@ const EstoqueScreen = () => {
 
   // Função para adicionar um novo produto
   const adicionarProduto = () => {
-    if (produtoNome && produtoValor && produtoEstoque && produtoMedida && produtoTipo) {
-      const novoProduto = {
-        id: itens.length + 1,
-        nome: produtoNome,
-        valor: parseFloat(produtoValor),
-        Estocados: parseInt(produtoEstoque),
-        Medida: parseFloat(produtoMedida),
-        Tipo: produtoTipo
-      };
-      const novosItens = [...itens, novoProduto];
-      setItens(novosItens);
-      salvarProdutos(novosItens);  // Salvar os novos produtos no AsyncStorage
-      // Limpar os campos após adicionar
-      setProdutoNome('');
-      setProdutoValor('');
-      setProdutoEstoque('');
-      setProdutoMedida('');
-      setProdutoTipo('');
+    if (isAdmin) {
+      if (produtoNome && produtoValor && produtoEstoque && produtoMedida && produtoTipo) {
+        const novoProduto = {
+          id: itens.length + 1,
+          nome: produtoNome,
+          valor: parseFloat(produtoValor),
+          Estocados: parseInt(produtoEstoque),
+          Medida: parseFloat(produtoMedida),
+          Tipo: produtoTipo
+        };
+        const novosItens = [...itens, novoProduto];
+        setItens(novosItens);
+        salvarProdutos(novosItens);  // Salvar os novos produtos no AsyncStorage
+        // Limpar os campos após adicionar
+        setProdutoNome('');
+        setProdutoValor('');
+        setProdutoEstoque('');
+        setProdutoMedida('');
+        setProdutoTipo('');
+      } else {
+        alert('Por favor, preencha todos os campos!');
+      }
     } else {
-      alert('Por favor, preencha todos os campos e selecione uma foto!');
+      alert('Você não tem permissão para adicionar produtos.');
     }
   };
 
   // Função para excluir um produto
   const excluirProduto = (id) => {
-    const novosItens = itens.filter(item => item.id !== id);
-    setItens(novosItens);
-    salvarProdutos(novosItens);  // Salvar a lista de produtos atualizada no AsyncStorage
+    if (isAdmin) {
+      const novosItens = itens.filter(item => item.id !== id);
+      setItens(novosItens);
+      salvarProdutos(novosItens);  // Salvar a lista de produtos atualizada no AsyncStorage
+    } else {
+      alert('Você não tem permissão para excluir produtos.');
+    }
   };
 
-  // Carregar os produtos ao iniciar o componente
+  // Carregar os produtos e verificar o login do usuário ao iniciar o componente
   useEffect(() => {
     carregarProdutos();
+    verificarUsuario();
   }, []);
 
   return (
-
-    
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.titulo}>Adionar Um Produto</Text>
+      <Text style={styles.titulo}>Adicionar Um Produto</Text>
       <View style={styles.formContainer}>
         <TextInput
           style={styles.input}
@@ -107,9 +126,9 @@ const EstoqueScreen = () => {
           onChangeText={setProdutoValor}
         />
         <Picker
-        selectedValue={produtoValor}
-        style={styles.picker}
-        onValueChange={(produtoTipo) => setProdutoTipo(produtoTipo)}
+          selectedValue={produtoTipo}
+          style={styles.picker}
+          onValueChange={(produtoTipo) => setProdutoTipo(produtoTipo)}
         >
           <Picker.Item label="Carro" value="carro" />
           <Picker.Item label="Moto" value="moto" />
@@ -118,7 +137,7 @@ const EstoqueScreen = () => {
         </Picker>
         <Button title="Adicionar Produto" onPress={adicionarProduto} />
       </View>
-      <Text style={styles.titulo}> Produtos Listados</Text>
+      <Text style={styles.titulo}>Produtos Listados</Text>
       <View style={styles.listContainer}>
         {itens.length === 0 ? (
           <Text style={styles.emptyList}>Nenhum produto no estoque</Text>
@@ -128,13 +147,13 @@ const EstoqueScreen = () => {
               <View style={styles.cardContent}>
                 <View style={styles.productInfo}>
                   <Text style={styles.productName}>{item.nome}</Text>
-                  <View style={{flexDirection: 'row',padding:5}}>
-                  <Text style={(styles.productSize,{width:'65%'})}>Medida: {item.Medida}</Text>
-                  <Text style={(styles.productSize,{width:'35%'})}>Estocados: {item.Estocados}</Text>
+                  <View style={{flexDirection: 'row', padding: 5}}>
+                    <Text style={(styles.productSize, {width: '65%'})}>Medida: {item.Medida}</Text>
+                    <Text style={(styles.productSize, {width: '35%'})}>Estocados: {item.Estocados}</Text>
                   </View>
-                  <View style={{flexDirection: 'row', padding:5}}>
-                  <Text style={(styles.productPrice, {width:'65%'})}>Valor: R${item.valor.toFixed(2)}</Text>
-                  <Text style={(styles.productSize,{width:'35%'})}>Tipo: {item.Tipo}</Text>
+                  <View style={{flexDirection: 'row', padding: 5}}>
+                    <Text style={(styles.productPrice, {width: '65%'})}>Valor: R${item.valor.toFixed(2)}</Text>
+                    <Text style={(styles.productSize, {width: '35%'})}>Tipo: {item.Tipo}</Text>
                   </View>
                   <TouchableOpacity onPress={() => excluirProduto(item.id)} style={styles.deleteButton}>
                     <Text style={styles.deleteButtonText}>Excluir</Text>
@@ -150,91 +169,7 @@ const EstoqueScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-    flexGrow: 1,
-  },
-  formContainer: {
-    marginBottom: 20,
-  },
-  input: {
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 4,
-    marginBottom: 12,
-    paddingHorizontal: 8,
-  },
-  selectImageButton: {
-    backgroundColor: '#4CAF50',
-    paddingVertical: 10,
-    borderRadius: 4,
-    marginBottom: 12,
-    alignItems: 'center',
-  },
-  picker: {
-    height: 50,
-    marginBottom: 20,
-  },
-  selectImageText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  listContainer: {
-    marginTop: 20,
-  },
-  emptyList: {
-    textAlign: 'center',
-    fontSize: 16,
-    color: '#888',
-  },
-  titulo:{
-    fontSize:25, 
-    fontFamily: 'KanitBold', 
-    alignSelf:'center', 
-    paddingBottom:15,
-  },
-  //visual dos produtos
-  card: {
-    marginBottom: 12,
-    padding: 16,
-    borderRadius: 25,
-    backgroundColor: '#f9f9f9',
-    flexDirection: 'row',
-  },
-  cardContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  productInfo: {
-    width:'100%'
-  },
-  productName: {
-    fontSize: 25,
-    fontFamily: 'KanitBold',
-  },
-  productSize: {
-    fontSize: 14,
-    color: '#555',
-    fontFamily: 'KanitLight',
-  },
-  productPrice: {
-    fontSize: 18,
-    color: '#333',
-    fontFamily: 'KanitRegular',
-  },
-  deleteButton: {
-    backgroundColor: '#ff4d4d',
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 4,
-    marginTop: 10,
-    alignItems: 'center',
-  },
-  deleteButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
+
 });
 
 export default EstoqueScreen;

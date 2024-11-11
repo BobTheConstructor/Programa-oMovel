@@ -8,7 +8,11 @@ const DetailScreen = ({ route }) => {
     <View style={styles.container}>
       <Text style={styles.symbol}>{stock.symbol}</Text>
       <Text style={styles.price}>Current Price: ${stock.price}</Text>
+<<<<<<< HEAD
       {/* Add more stock details as needed 
+=======
+      
+>>>>>>> f6f48edefa4c67b231bc60f6ae71df8059bd40be
     </View>
   );
 };
