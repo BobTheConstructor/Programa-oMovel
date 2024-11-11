@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'; 
+import React, { useState } from 'react';
 import { View, Text, TextInput, Alert, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
@@ -11,7 +11,6 @@ const LoginScreen = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const navigation = useNavigation();
 
-  // Função para cadastrar um novo usuário
   const cadastrarUsuario = async () => {
     if (!username || !password) {
       Alert.alert('Erro', 'Por favor, insira um nome de usuário e senha');
@@ -19,8 +18,18 @@ const LoginScreen = () => {
     }
 
     try {
-      await AsyncStorage.setItem('usuario', username);  // Armazenando os dados
+      // Verificar se o usuário já está cadastrado
+      const storedUsername = await AsyncStorage.getItem('usuario');
+      if (storedUsername === username) {
+        Alert.alert('Erro', 'Este nome de usuário já está cadastrado');
+        return;
+      }
+
+      // Salvar os dados do novo usuário
+      const isAdminUser = username === 'JKMPneus' && password === 'Jkmadm3108';  // Checa se é admin
+      await AsyncStorage.setItem('usuario', username);  
       await AsyncStorage.setItem('senha', password);
+      await AsyncStorage.setItem('isAdmin', JSON.stringify(isAdminUser)); // Salva a informação de admin
       Alert.alert('Sucesso', 'Cadastro realizado com sucesso!');
     } catch (e) {
       console.log('Erro ao cadastrar usuário', e);
@@ -28,7 +37,6 @@ const LoginScreen = () => {
     }
   };
 
-  // Função para fazer login
   const fazerLogin = async () => {
     if (!username || !password) {
       Alert.alert('Erro', 'Por favor, insira um nome de usuário e senha');
@@ -36,19 +44,22 @@ const LoginScreen = () => {
     }
 
     try {
-      const storedUsername = await AsyncStorage.getItem('usuario');  // Recuperando dados armazenados
+      const storedUsername = await AsyncStorage.getItem('usuario');  
       const storedPassword = await AsyncStorage.getItem('senha');
-      if (storedUsername === 'admin' && storedPassword === 'admin') {
-        // Quando o administrador esta logado
-        setIsAdmin(true);
-        Alert.alert('Sucesso', 'Login realizado com sucesso!');
-        navigation.navigate('PaginaPrincipal');
-      } else if (storedUsername === username && storedPassword === password) {
-        // Quando outro usuario esta logado
-        Alert.alert('Sucesso', 'Login realizado com sucesso!');
+      const storedIsAdmin = await AsyncStorage.getItem('isAdmin');
+      const isAdminUser = storedIsAdmin === 'true';  // Verifica se o usuário tem permissões especiais
+
+      // Verifica se o usuário e senha são válidos
+      if (storedUsername === username && storedPassword === password) {
+        if (isAdminUser) {
+          setIsAdmin(true);
+          Alert.alert('Sucesso', 'Login realizado com sucesso! Você é um administrador.');
+        } else {
+          setIsAdmin(false);
+          Alert.alert('Sucesso', 'Login realizado com sucesso!');
+        }
         navigation.navigate('PaginaPrincipal');
       } else {
-        // falha no login
         Alert.alert('Erro', 'Nome de usuário ou senha incorretos, Caso não exista, Clique em "Cadastrar"');
       }
     } catch (e) {
@@ -57,81 +68,73 @@ const LoginScreen = () => {
     }
   };
 
-  // Função para deslogar
-  const deslogar = () => {
-    setIsLoggedIn(false);
-    Alert.alert('Logout', 'Você foi deslogado com sucesso!');
-  };
-
   return (
     <View style={styles.container}>
-          <View style={styles.logoContainer}>
-            <Animatable.Image
-              source={require('../../assets/JKM.png')}  // Imagem do logo
-              style={styles.logoImage}
-              delay={200}
-              animation="bounceIn"
-              resizeMode="contain"
-            />
-          </View>
-          <Animatable.View style={styles.formContainer} delay={400} animation="fadeInUp">
-            <Text style={styles.title}>Cadastro/Login</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Nome de usuário"
-              value={username}
-              onChangeText={setUsername}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Senha"
-              secureTextEntry
-              value={password}
-              onChangeText={setPassword}
-            />
-            <View style={styles.buttonContainer}>
-              <Text style={styles.buttonText} onPress={cadastrarUsuario}>
-                Cadastrar
-              </Text>
-              <MaterialCommunityIcons
-                name="account-plus"
-                size={40}
-                color="black"
-                onPress={cadastrarUsuario}
-                style={styles.icon}
-              />
-            </View>
-            <View style={styles.buttonContainer}>
-              <Text style={styles.buttonText} onPress={fazerLogin}>
-                Login
-              </Text>
-              <MaterialCommunityIcons
-                name="login"
-                size={40}
-                color="black"
-                onPress={fazerLogin}
-                style={styles.icon}
-              />
-            </View>
-            <View style={styles.buttonContainer}>
-              <Text style={styles.buttonText} onPress={() => navigation.navigate('RecuperarSenha')}>
-                Esqueceu a Senha?
-              </Text>
-              <MaterialCommunityIcons
-                name="account-question"
-                size={40}
-                color="black"
-                onPress={() => navigation.navigate('RecuperarSenha')}
-                style={styles.icon}
-              />
-            </View>
-          </Animatable.View>
-       
+      <View style={styles.logoContainer}>
+        <Animatable.Image
+          source={require('../../assets/JKM.png')}
+          style={styles.logoImage}
+          delay={200}
+          animation="bounceIn"
+          resizeMode="contain"
+        />
+      </View>
+      <Animatable.View style={styles.formContainer} delay={400} animation="fadeInUp">
+        <Text style={styles.title}>Cadastro/Login</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Nome de usuário"
+          value={username}
+          onChangeText={setUsername}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Senha"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
+        <View style={styles.buttonContainer}>
+          <Text style={styles.buttonText} onPress={cadastrarUsuario}>
+            Cadastrar
+          </Text>
+          <MaterialCommunityIcons
+            name="account-plus"
+            size={40}
+            color="black"
+            onPress={cadastrarUsuario}
+            style={styles.icon}
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Text style={styles.buttonText} onPress={fazerLogin}>
+            Login
+          </Text>
+          <MaterialCommunityIcons
+            name="login"
+            size={40}
+            color="black"
+            onPress={fazerLogin}
+            style={styles.icon}
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Text style={styles.buttonText} onPress={() => navigation.navigate('RecuperarSenha')}>
+            Esqueceu a Senha?
+          </Text>
+          <MaterialCommunityIcons
+            name="account-question"
+            size={40}
+            color="black"
+            onPress={() => navigation.navigate('RecuperarSenha')}
+            style={styles.icon}
+          />
+        </View>
+      </Animatable.View>
     </View>
   );
 };
 
-// Estilos
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -157,7 +160,7 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     justifyContent: 'center',
-    flex:1,
+    flex: 1,
     alignItems: 'center',
     width: '100%',
     marginLeft: 50,
@@ -202,18 +205,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
     textAlign: 'center',
     textDecorationLine: 'underline',
-  },
-  logoutIcon: {
-    position: 'absolute',
-    top: 55,
-    left: 25,
-    backgroundColor: '#f7a700',
-    borderRadius: 30,
-    padding: 10,
-    shadowColor: '#000',
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
   },
 });
 
