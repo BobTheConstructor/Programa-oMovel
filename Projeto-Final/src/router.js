@@ -42,12 +42,7 @@ const Routes = () => {
 
   const MenuRodape = () => {
     return (
-<<<<<<< HEAD
-      <Tab.Navigator initialRouteName="Home" barStyle={{ backgroundColor: '#f7a700' }} activeColor="white" inactiveColor="black">
-=======
-      <Tab.Navigator initialRouteName="Home" barStyle={{ backgroundColor: '#f7a700' }} activeColor="white" inactiveColor="black" backBehavior="initialRoute">
-        
->>>>>>> c174e760baef42a8e19bffe77201083ad6eb779d
+      <Tab.Navigator initialRouteName="Estoque" barStyle={{ backgroundColor: '#f7a700' }} activeColor="white" inactiveColor="black">
         {/*<Tab.Screen
           name="Home"
           component={HomeScreen}
@@ -66,13 +61,11 @@ const Routes = () => {
         />
         <Tab.Screen
           name="Usuario"
-          component={ProfileScreen}
           options={{
             tabBarLabel: 'Profile',
             tabBarIcon: ({ color }) => <MaterialIcons name="account-circle" color={color} size={28} />,
           }}
         >
-<<<<<<< HEAD
           {() => (
             <ProfileScreen
               username={userData?.username}
@@ -81,8 +74,6 @@ const Routes = () => {
               onLogout={logout}
             />
           )}
-=======
->>>>>>> c174e760baef42a8e19bffe77201083ad6eb779d
         </Tab.Screen>
       </Tab.Navigator>
     );

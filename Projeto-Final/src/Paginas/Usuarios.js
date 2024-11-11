@@ -52,7 +52,7 @@ const ProfileScreen = () => {
     try {
       await AsyncStorage.setItem('senha', newPassword);
       Alert.alert('Sucesso', 'Senha redefinida com sucesso!');
-      setNewPassword('');  // Clear the input field after reset
+      setNewPassword('');  
     } catch (e) {
       console.log('Erro ao redefinir a senha', e);
       Alert.alert('Erro', 'Ocorreu um erro ao redefinir a senha');

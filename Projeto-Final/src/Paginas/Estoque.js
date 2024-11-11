@@ -44,7 +44,7 @@ const EstoqueScreen = () => {
         nome: produtoNome,
         valor: parseFloat(produtoValor),
         Estocados: parseInt(produtoEstoque),
-        Medida: parseFloat(produtoMedida),
+        Medida: produtoMedida,
         Tipo: produtoTipo
       };
       const novosItens = [...itens, novoProduto];
